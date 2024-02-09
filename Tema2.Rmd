@@ -1,0 +1,428 @@
+---
+title: "Tema 2"
+subtitle: Análisis Exploratorio de Datos. Máster en Ciencia de Datos- UV
+#author: "Marcelino Martínez"
+#date:  "`r Sys.Date()`"  #Pondría la fecha del día actual
+ 
+params:
+  lang: ES
+lang: "`r switch(params$lang, ES = 'es-ES', EN = 'en-US')`"
+output:
+  # html_notebook:
+  #   echo: yes
+  #   number_sections: yes
+  #   toc: yes
+  # pdf_document:
+  #   toc: yes
+  #   toc_depth: 3
+  #   number_sections: yes
+  html_document:
+    echo: yes
+    number_sections: yes
+    theme: lumen
+    toc: yes
+language:
+  label:
+    fig: 'Figura '
+    tab: 'Tabla '
+    eq: 'Ecuación '
+    thm: 'Teorema '
+    lem: 'Lema '
+    def: 'Definición '
+    cor: 'Corolario '
+    prp: 'Proposición '
+    exm: 'Ejemplo '
+    exr: 'Ejercicio '
+    proof: 'Demostración. '
+    remark: 'Nota: '
+    solution: 'Solución. '
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+
+# CONFIGURACIÓN GENERAL
+library(knitr)
+options(width = 100)
+# Opciones generales chunks
+opts_chunk$set(echo=T,message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = './figure/')
+
+#options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+#knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+```{r, message=FALSE}
+# Asegúrate que el paquete "pacman" está instalado
+if (!require("pacman")) install.packages("pacman")
+
+```
+
+```{r}
+# Especificamos las librerías necesarias en esta lista
+
+p_load(MASS,knitr,tidyverse,car,RSQLite,tictoc)
+
+```
+
+
+
+# Importación de datos.
+
+
+## Ejemplo 1. 
+Importación de Auto MPG desde UCI ML Repository
+
+```{r, echo=T,eval=F}
+# Abre el navegador con la página para inspección
+browseURL(url='https://archive.ics.uci.edu/ml/datasets/auto+mpg')
+
+# Creamos directorio si no existe
+if (!file.exists("data")) {
+    dir.create("data")
+}
+# Descargamos fichero enlazado y lo almacenamos con el nombre deseado
+library(lubridate)
+#fichero<-paste0('./data/UCIautoMpg',now(),'.txt') # Puede causar problemas en window, debido a nombre de ficheros no válidos al incluir la fecha y hora
+fichero<-paste0('./data/UCIautoMpg','.txt')
+file<-'https://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data'
+download.file(url=file, destfile = fichero)
+file<-'https://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.names'
+download.file(url=file, destfile = './data/auto-mpg.names')
+list.files('./data')
+
+# Incluimos fecha  y la deberíamos almacenar
+dateDownloaded <- date()
+```
+
+
+## Ejemplo 2. 
+**Ejercicio**:
+Accede al Instituto Nacional de Estadística y busca en INEbase la población de todos los municipios de la provincia de Valencia.
+Descarga los ficheros de datos en todos los formatos que estén disponibles y guárdalos en una carpeta *'./data'*.
+
+Ruta: Inebase ->Demografía->Padrón -> Población por municipios ->Detalle municipal
+```{r, echo=T,eval=T}
+# Abre el navegador con la página para inspección
+#browseURL(url='https://www.ine.es/dynt3/inebase/index.htm?padre=525#')
+
+
+# Creamos directorio si no existe
+if (!file.exists("data")) {
+    dir.create("data")
+}
+# Descargamos fichero enlazado y lo almacenamos con el nombre deseado
+library(lubridate)
+fichero<-paste0('./data/vlc','.xls')
+download.file(url='https://www.ine.es/jaxiT3/files/t/es/xls/2903.xls?nocab=1', destfile = paste0('./data/vlc','.xls'))
+download.file(url='https://www.ine.es/jaxiT3/files/t/es/xls/2903.xlsx?nocab=1', destfile = paste0('./data/vlc','.xlsx'))
+download.file(url='https://www.ine.es/jaxiT3/files/t/es/px/2903.px?nocab=1', destfile = paste0('./data/vlc','.px'))
+download.file(url='https://www.ine.es/jaxiT3/files/t/es/csv/2903.csv?nocab=1', destfile = paste0('./data/vlc','.csv'))
+download.file(url='https://www.ine.es/jaxiT3/files/t/es/csv_sc/2903.csv?nocab=1', destfile = paste0('./data/vlc','.csv_sc'))
+download.file(url='https://www.ine.es/jaxiT3/files/t/es/csv_c/2903.csv?nocab=1', destfile = paste0('./data/vlc','.csv_c'))
+download.file(url='http://servicios.ine.es/wstempus/js/es/DATOS_TABLA/2903?tip=AM', destfile = paste0('./data/vlc','.json'))
+
+# fichero<-paste0('./data/vlc',now(),'.xls')
+# download.file(url='https://www.ine.es/jaxiT3/files/t/es/xls/2903.xls?nocab=1', destfile = paste0('./data/vlc',now(),'.xls'))
+# download.file(url='https://www.ine.es/jaxiT3/files/t/es/xls/2903.xlsx?nocab=1', destfile = paste0('./data/vlc',now(),'.xlsx'))
+# download.file(url='https://www.ine.es/jaxiT3/files/t/es/px/2903.px?nocab=1', destfile = paste0('./data/vlc',now(),'.px'))
+# download.file(url='https://www.ine.es/jaxiT3/files/t/es/csv/2903.csv?nocab=1', destfile = paste0('./data/vlc',now(),'.csv'))
+# download.file(url='https://www.ine.es/jaxiT3/files/t/es/csv_sc/2903.csv?nocab=1', destfile = paste0('./data/vlc',now(),'.csv_sc'))
+# download.file(url='https://www.ine.es/jaxiT3/files/t/es/csv_c/2903.csv?nocab=1', destfile = paste0('./data/vlc',now(),'.csv_c'))
+# download.file(url='http://servicios.ine.es/wstempus/js/es/DATOS_TABLA/2903?tip=AM', destfile = paste0('./data/vlc',now(),'.json'))
+
+
+# https://www.ine.es/jaxiT3/files/t/es/xlsx/2903.xlsx?nocab=1
+# https://www.ine.es/jaxiT3/files/t/es/xls/2903.xls?nocab=1
+# https://www.ine.es/jaxiT3/files/t/es/px/2903.px?nocab=1
+# https://www.ine.es/jaxiT3/files/t/es/csv/2903.csv?nocab=1
+# https://www.ine.es/jaxiT3/files/t/es/csv_sc/2903.csv?nocab=1
+# https://www.ine.es/jaxiT3/files/t/es/csv_c/2903.csv?nocab=1
+# http://servicios.ine.es/wstempus/js/es/DATOS_TABLA/2903?tip=AM
+
+list.files('./data')
+
+# Incluimos fecha  y la deberíamos almacenar
+dateDownloaded <- date()
+save(file = './data/FechaDescarga.Rdata',list = c('dateDownloaded'))
+```
+El fichero Json no se puede descargar directamente con `download.file ya que realiza una consulta. Observar que el formato es distinto. Se puede descargar directamente desde la página web pulsando sobre el enlace. (**2020** Sí que se descarga directamente con el enlace)
+
+Visualizar el contenido del fichero con extensión **.px** ¿Se ven correctamente los acentos ?. Depende del SO que estés usando ya que la codificación es ISO-8859-1. 
+Al abrir con Rstudio, por defecto se abre con la codificación que se haya especificado en la configuración (**tools->Global Options->Code -> Saving**), pero se puede reabrir usando una codificación distinta (**Reopen with encoding**), pero *¿ Cómo podemos saber cuál es la codificación correcta ?*
+
+
+## Ejemplo 3.
+ Descargamos el contenido de una página web
+```{r}
+URL<-'https://www.ine.es/dynt3/inebase/index.htm?padre=525#'
+download.file(url=URL, destfile = './data/CensoProvincias.html')
+download.file(url='https://www.uv.es/', destfile = './data/uv.html')
+```
+# Problemas importando ficheros de texto, con formato.
+
+## Cambio del nombre de variables
+
+```{r}
+Uba<-read.csv(file='data/Unclaimed_bank_accounts.csv',header = T,sep=',',stringsAsFactors = F)
+colnames(Uba)
+```
+
+```{r}
+Uba2<-read_csv(file='data/Unclaimed_bank_accounts.csv',col_names = T)
+colnames(Uba2)
+```
+## Comas en cadenas de texto
+
+Lectura correcta que considera las comas dentro de las comillas como separador de campos.
+Podemos especificar qué comillas se han usado para separar caracteres
+```{r}
+Uba3<-read_csv(file='data/Unclaimed_bank_accounts.csv',col_names = T,quote = "\"")
+head(Uba3,n=3)
+kable(head(Uba3,n=3))
+```
+
+Lectura incorrecta que considera las comas dentro de las comillas como separador de campos, ya que hemos indicado un caracter de separación erróneo. Como consecuencia no se reconocen las cadenas y las comas son separadores, pero **ATENCIÓN, NO PRODUCE NINGÚN ERROR DE EJECCUCION** ¿ Cómo se está realizando la importación ?
+
+```{r}
+Uba4<-read_csv(file='data/Unclaimed_bank_accounts.csv',col_names = T,quote = "\'")
+kable(head(Uba4,n=3))
+head(Uba4,n=3)
+```
+
+
+# Lectura del ficheros de texto línea a línea.
+## Lectura fichero _Unclaimed_bank_accounts.csv_
+ Usando **readLines** cargamos un fichero de texto en un vector de caracteres donde cada elemento es una línea.
+```{r}
+Uba_lines<-readLines(con='data/Unclaimed_bank_accounts.csv')
+str(Uba_lines)
+head(Uba_lines,n=4)
+```
+
+## Ejercicio. Importación de los ficheros _UCIautoMpg.txt_ y _auto-mpg.names_
+
+El objetivo de este ejercicio es importar los datos del fichero _UCIautoMpg.txt_ y poner nombres a las variables cuya información está en _auto-mpg.names_.
+
+Proceso:
+
+1. División en 2 vectores de caracteres usando el caracter tabulador'\t'
+
+```{r}
+library(tictoc)
+UCIauto<-readLines(con='data/UCIautoMpg.txt')
+namesAuto<-readLines(con='data/auto-mpg.names')
+head(UCIauto)
+
+# Función de importación específica para este fichero
+ ConvertAutoMpgRecords<-function (rawRecords){
+   #
+   noQuotes <- gsub('\"', '', rawRecords)
+   #
+   n <- length(noQuotes)
+   outFrame <- NULL
+   for (i in 1:n){
+    x <- noQuotes[i]
+    twoParts <- unlist(strsplit(x, split = "\t"))
+    partOne <- unlist(strsplit(twoParts[1],
+                               split = "[ ]+"))
+    numbers <- as.numeric(partOne)
+    upFrame <- data.frame(mpg = numbers[1],
+                          cylinders = numbers[2],
+    displacement = numbers[3],
+    horsepower = numbers[4],
+    weight = numbers[5],
+    acceleration = numbers[6],
+    modelYear = numbers[7],
+    origin = numbers[8],
+    carName = twoParts[2])
+    outFrame <- rbind.data.frame(outFrame, upFrame)
+   }
+   return(outFrame)
+ }
+
+tic() 
+UCIauto.df<- ConvertAutoMpgRecords(UCIauto)   
+show(toc())     
+
+# Otra forma
+tic()
+library(stringr)
+
+UCIauto<-str_replace_all(UCIauto,'\"','')
+Partes<-strsplit(UCIauto,'\t')
+aux<-unlist(Partes)
+parte1<-aux[seq(1,length(aux),by=2)]
+parte2<-aux[seq(2,length(aux),by=2)]
+parte11<-strsplit(parte1,split = '[ ]+') # Expresión regular uno o más espacios
+parte11<-unlist(parte11)
+parte11<-as.numeric(parte11)
+parte11m<-matrix(parte11,ncol=8,byrow = T)
+parte11m<-as.data.frame(parte11m)
+
+parte11m.pipe<-strsplit(parte1,split = '[ ]+')%>%unlist()%>%as.numeric()%>%matrix(ncol=8,byrow = T)%>%as.data.frame()
+
+UCIauto.df2<-cbind.data.frame(parte11m,parte2)
+
+# ¿ Obtenemos el nombre de las columnas automáticamente desde el fichero auto-mpg.names ?
+
+colnames(UCIauto.df2)<-c("mpg","cylinders","displacement","horsepower","weight","acceleration","modelYear","origin","carName")
+
+show(toc())
+
+# Otra forma usando pipes (Más adelante lo veremos)
+tic()
+
+UCIauto<-str_replace_all(UCIauto,'\"','')
+Partes<-strsplit(UCIauto,'\t')
+aux<-unlist(Partes)
+parte1<-aux[seq(1,length(aux),by=2)]
+parte2<-aux[seq(2,length(aux),by=2)]
+
+UCIauto.df2.pipe<-strsplit(parte1,split = '[ ]+')%>%
+  unlist%>% # Lo paréntesis no son necesarios
+  as.numeric()%>%
+  matrix(ncol=8,byrow = T)%>%
+  as.data.frame()%>%
+  mutate(carName=parte2)
+
+# ¿ Podríamos automatizarlo, valdría la pena ?
+colnames(UCIauto.df2.pipe)<-c("mpg","cylinders","displacement","horsepower","weight","acceleration","modelYear","origin","carName")
+
+show(toc())
+
+head(UCIauto.df)
+head(UCIauto.df2)
+head(UCIauto.df2.pipe)
+
+# Usamos herramienta de importación base. Todo correcto a falta del nombre de las columnas.
+UCIautoMpg <- read.table("data/UCIautoMpg.txt", quote="\"", comment.char="", stringsAsFactors=FALSE)
+
+# Si usamos herramienta de importación readr necesitamos arreglos posteriores.
+UCIautoMpg2 <- read_table2("data/UCIautoMpg.txt", col_names = FALSE)
+
+```
+# Almacenamiento de gráficos
+
+Usamos el conjunto `mtcars` y hacemos una gráfica cualquiera. Podemos usar una carpeta para almacenar las figuras.
+
+## Gráfico vectorial pdf
+### En pantalla
+
+```{r}
+
+boxplot(mpg ~ cyl, data = mtcars,
+xlab = "Cylinders", ylab = "Gas mileage",
+las = 1, varwidth = TRUE)
+
+```
+### En fichero
+
+```{r}
+pdf("./figure/AutoMpgBoxplotEx.pdf")
+boxplot(mpg ~ cyl, data = mtcars,
+xlab = "Cylinders", ylab = "Gas mileage",
+las = 1, varwidth = TRUE)
+# Si realizamos más de una gráfica se van uniendo en el fichero pdf
+library(ggplot2)
+ggplot(data=mtcars,aes(x=hp,y=mpg,color=factor(gear)))+geom_point()
+ggplot(data=mtcars,aes(x=hp,y=mpg,color=factor(gear)))+geom_point(aes(size=carb))
+dev.off()
+```
+```{r}
+setwd("./figure")
+pdf()
+boxplot(mpg ~ cyl, data = mtcars,
+xlab = "Cylinders", ylab = "Gas mileage",
+las = 1, varwidth = TRUE)
+# Si realizamos más de una gráfica se van uniendo en el fichero pdf
+library(ggplot2)
+ggplot(data=mtcars,aes(x=hp,y=mpg,color=factor(gear)))+geom_point()
+ggplot(data=mtcars,aes(x=hp,y=mpg,color=factor(gear)))+geom_point(aes(size=carb))
+dev.off()
+setwd("..")
+```
+
+
+
+## Gráfico raster png
+
+Si queremos almacenar muchos gráficos en fichero no damos nombres y se van nombrando secuencialmente (**RplotXXX**). Para poder especificar la ruta de almacenamiento se ha utilizado **setwd()**
+
+```{r}
+setwd("./figure")
+png()
+boxplot(mpg ~ cyl, data = mtcars,
+xlab = "Cylinders", ylab = "Gas mileage",
+las = 1, varwidth = TRUE)
+
+boxplot(mpg ~ disp, data = mtcars,
+xlab = "Displacement", ylab = "Gas mileage",
+las = 1, varwidth = TRUE)
+
+boxplot(mpg ~ hp, data = mtcars,
+xlab = "Gross horsepower", ylab = "Gas mileage",
+las = 1, varwidth = TRUE)
+dev.off()
+setwd("..")
+```
+
+# Acceso a una base de datos.
+
+En este ejemplo se ilustra cómo acceder (y en este caso también crear) una base de datos desde R.
+
+Al hacer la conexión como no existe la BBDD se creará (lo habitual será que nos faciliten los parámetros de acceso a la BBDD). Este sería un acceso a una BBDD remota real, donde el *password* se ha omitido.
+
+library(RMySQL)
+library(DBI)
+drv = dbDriver("MySQL")
+mydb_conn = dbConnect(drv, user='aruni_db', password='XXXXXXXX', dbname='aranco', host='127.0.0.1', port=8080, client.flag = CLIENT_MULTI_STATEMENTS)
+
+
+```{r}
+library(RSQLite)
+
+#Conectamos y creamos la base de datos en local ya que no existe.
+
+if(file.exists("MusicosInstrumentos.db"))
+{file.remove("MusicosInstrumentos.db")}
+
+conn <- dbConnect(SQLite(), "MusicosInstrumentos.db")
+
+# Escribimos las tablas
+dbWriteTable(conn, "MusicoGrupo", band_members)
+dbWriteTable(conn, "MusicoInstrumento", band_instruments)
+
+# Vemos las tablas de la BBDD
+dbListTables(conn)
+
+# Vemos las tablas de la BBDD. El nombre de la tabla no es sensible a Mayúsculas/ Minúsculas
+dbListFields(conn,'MusicoGrupo')
+dbListFields(conn,'MUSICOINSTRUMENTO')
+dbListFields(conn,dbListTables(conn)[2])
+
+# Ejecutamos consulta SQL para averiguar el número de registros por tabla y almacenamos el resultado en una variable.
+# Los valores devueltos son data frames
+
+aux1<-dbGetQuery(conn, "SELECT COUNT(*) AS 'RegistrosMusicoGrupo' FROM MusicoGrupo")
+str(aux1)
+aux2<-dbGetQuery(conn, "SELECT COUNT(*) AS 'Registros' FROM MUSICOINSTRUMENTO")
+str(aux2)
+aux3<-dbGetQuery(conn, "SELECT band FROM musicoGrupo AS 'BandaBeatles' WHERE band=='Beatles'")
+
+
+Resul<-dbGetQuery(conn, "SELECT * FROM musicoGrupo AS 'BandaBeatles' WHERE band=='Beatles'")
+# Al acabar cerramos la conexión con la BBDD
+dbDisconnect(conn)
+
+```
+
+
+

@@ -1,0 +1,80 @@
+				Identificación	Usuario de correo UV. martsobm															
+				Age	Edad en años.															
+				Sex	Sexo: Femenino, Masculino															
+				Wr.Hnd	Distancia del extremo del meñique al extremo del pulgar de la mano con la que escribimos. (en centímetros) PALMO															
+				NW.Hnd	Mano con la que escribes: Izquierda, Derecha															
+				Fold	Cruza los brazos. Qué brazo está arriba ?: Izquierdo, Derecho															
+				Pulse	Cuál es tu ritmo cardíaco, en reposo, en latidos por minuto.															
+				Clap 	Aplaude. ¿Cómo están las manos ?. 3 casos. 'Der s Izd', (Derecha sobre izquierda) ' Izq s Der', 'Ninguna'															
+				Exer	Cuántos días a la semana realizas ejercicio físico. Numérica de 0-7															
+				Smoke	Fumas: Si / No															
+				Height	Altura (en centímetros)															
+				ALG	Calificación numérica obtenida en álgebra. Usa NP para no presentado y NC, para no compensable, si procede															
+				ANM	Calificación numérica obtenida en análisis matemático. Usa NA para no presentado y NC, para no compensable, si procede															
+				FP	Calificación numérica obtenida en fundamentos de programación. Usa NA para no presentado y NC, para no compensable, si procede															
+				DCS	Calificación numérica obtenida en Datos Ciencia y Sociedad. Usa NA para no presentado y NC, para no compensable, si procede															
+				MD	Calificación numérica obtenida en Matemática Discreta. Usa NA para no presentado y NC, para no compensable, si procede															
+				HSt	Horas de trabajo DIARIAS relacionadas con los estudios, además de la asistencia a clase. 															
+				Hwork	¿Tienes un trabajo remunerado además del estudio ?. Indica las horas de trabajo SEMANALES. 0 indica que no tiene otro trabajo.															
+				Comentarios	OBLIGATORIO: Campo de texto libre para incluir comentarios que consideres sobre la asignatura. 															
+					Vuestos comentarios ayudarán a mejorar y permitirán procesar texto.															
+					El primer valor es un ejemplo de registro															
+				DEJAD EL MÍNIMO NÚMERO DE HUECOS POSIBLE																
+																				
+				 ES IMPORTANTE QUE LOS DATOS INCLUIDOS SEAN REALES PARA  PODER OBTENER CONCLUSIONES																
+				Completa una fila de esta tabla con tus datos. Los utilizaréis para hacer un autoanálisis.																
+		Id	Age	Sex	Wr.Hnd	NW.Hnd	Fold	Pulse	Clap	Exer	Smoke	Height	ALG	ANM	FP	DCS	MD	HSt	Hwork	Comentarios
+Registro Ejemplo		martsobm	51	M	22	Derecha	Izquierdo	65	Der s Izq	2	No	178	NP	7	6	4	3,8	5	37,5	Es la primera toma de contacto con el análsis de datos reales. Me resultará de gran utilidad.
+		liyan	19	F	20	Derecha	Izquierdo	75	Der s Izq	0	No	163	6,44	7,8	NA	NA	7,3	2	0	Me asusta la cantidadad de vocabularios nuevos de esta asignatura.
+		aroce2	21	M	23	Derecha	Derecho	60	Der s Izd	4	Si	180	6,41	4	NS	NS	8	3	0	Estoy muy contento conforme esta planteado el grado en general, creo que las asignaturas se relacionan muy bien unas con otras y permiten tener una visión general de lo que es la ciencia de datos. Con ganas de seguir aprendiendo!
+		naolca	19	M	22	Derecha	Izquierdo	50	Izq s Der	5	Si	188	6,135	8,04	NS	NS	6,5	5	0	lnteresante ampliar las nociones vistas en el primer cuatri sobre tratamiento de datos.
+		pasanro2	18	M	23	Derecha	Derecho		Der s Izq	5	No	181	68	NC	NA	NA	5.8	1	10	Bastante bien. 
+		vijecato	18	M	21	Derecha	Izquierdo	82	Der s Izq	7	No	168	7.6	8.8	no se sabe	no se sabe	7.0	4	0	Muy interesante
+		jobaman	22	Masculino	21	Derecha	Derecha	79	Der s Izq	2	Si	182	6.27	NC	NS	NS	6.5	5	0	La asignatura es interesante
+		masanm25	19	F	-81	Derecha	Derecho	80	Der s Izq	0	No									
+		marloca4	18	F	16	Derecha	Derecho	106	Der s Izq	1	No	165	5.39	4			6.3	3	0	Me parece una asignatura muy interesante, en general, sobre el grado tengo la misma sensación. 
+		alsanzpa	18	Masculino	17	Izquierda	Izquierdo	66	Der s Izq	4	No	178	7,55	7,85	NS	NS	4,1	5	0	Es interesante la toma de datos.
+		mogano	18	Masculino	22	Izquierda	Derecho	60	Der s Izq	8	No	180	7.5	7.5	NS	NS	6		0	Me parece interesante la toma de datos.
+		ropama3	18	Femenino	18	Derecha	Izquierdo	80	Izq s Der	5	No	157	7.38	08.04	NS	NS	7.1	1	0	Es una asignatura que no se te hace pesada.
+		marlose3	18	F	21	Derecha	Derecho	65	Der s Izq	3	No	180	6.25	7.24			7	2	0	Me parece bastante interesante
+		sanar4	19	Femenino	21	Izquierda	Derecho	69	Der s Izq	0	Si	160	7	7,95			7,9	2	0	Parece interesante.
+		maroma29	18	Femenino	18	Derecha	Derecho	61	Der s Izq	3	No	169	6.75	7.7			6.5	2	0	Interesante
+		alquisa	18	M	22	Derecha	Izquierdo	80	Der s Izq	4	No	178	4	NP	NP	NS	4	2	0	Los distintos tipos de datos y como se trabajan.
+		jopegon4	19	Masculino	17	Derecha	Izquierdo	55	Der s Izq	2	No	173								
+		apestegu	18	M	23	Izquierda	Izquierda	48	Izq s Der	6	No	190	6.2	07.04	NS	NS	6.4			
+		angilca2	19	F	17	Derecha	Izquierdo	62	Ninguna	0	Si	160	7.19	7.7	NS	NS	6.0	1	0	Espero aprobar
+		aor8	18	Masculino	20	Izquierda	Derecho	68	Izq s Der	2	No	180	7.24	8.59	NS	NS	7.1	2	0	Asignatura interesante para conocer y estudiar a fondo los datos
+		johntay	18	M	18	Izquierda	Izquierdo	60	Ninguna	5	No	183	7.965	7.75			8.4	2	0	
+		macarrone																		
+		icuaruiz	18	M	17	Derecha	Izquierda	55	Der s Izq	5	Si	175	5.2	6	no se	 no se	7	2	0	La asignatura esta bien
+		almos	18	M	15	Izquierda	Derecha	65	Izq s Der	6	Si	178	6.2	8	este tio no corrige	ojala saberlo	7.5	2	0	Parece interesante
+		serpies	18	M	20	Derecha	Izquierda	60	Der s Izq	6	Si	185	6 y algo	3.2	nose	nose	6.8	2	0	
+		raulgolo	21	Masculino	21	Derecha	Derecha	69	Der s Izq	0	No	173	7.8	8.6	No lo se pero creo que matricula	Aprobada espero	7.3	1	0	Gran asignatura con ganas de aprender :)
+		Ana Boweles																		
+		garalma6	19	F	20	Derecha	Derecho	66	Der s Izq	0	No	173	6.725	8.58	NP	NP	8.2	2	0	Muy interesante
+		jomacac	18	Masculino	23	Derecha	Derecho	59	Der s Izq	5	No	183	7,98	7,83	NS	NS	8,3	2	0	
+		nipeugar	18	Masculino	22	Derecha	Derecho	70	Der s Izq	4	Si	173	6	7.6	NS	NS	5	0	0	Me mola la asignatura
+		dadiaz5	18	M	21	Derecha	Derecho	72	Der s Izq	6	Si	172	5.2	3.6			7.1	2	0	Interesante
+		agal3	18	M	20	Derecha	Izquierdo	68	Izq s Der	1	No	178	7,42	6,63	NA	NA	5,9	3	0	Palabras nuevas y muchas palabras en inglés
+		cavero5	18	Femenino	16	Derecha	Izquierdo	60	Izq s Der	0	No	167	7,01	7,71			6,5	3	0	Es interesante porque, además de estudiar la teoría, se ven y se trabajan sus aplicaciones prácticas.
+		isnova	20	Masculino	9	Derecha	Derecho	76	Der s Izq	4	No	182	6,825	7,76	NA	NA	7,2	3	0	Muy útil la manipulación de datos.
+		pamurgo	18	Masculino	15	Derecha	Izquierdo	62	Izq s Der	2	no	175	6,49	3,5	NA	NA	5	2	0	Muy interesante
+		jorcerna	18	M	22	Derecha	Derecho	67	Der s Izq	4	No	183	7,44	7,23			7,9	2	0	Asignnatura en la que parece que hay que estudiar mucho, pero esta bien.
+		alrana	18	Masculino	20	Derecha	Derecho	58	Der s Izq	5	No	180	8,58	8,62	NS	NS	7,8	3	0	Interesante, aunque un tanto densa
+		avason	21	Masculino	22	Derecha	 Derecho	67	Der s Izq	2	Si	188	7,2	8,2	5,7	5,6	7	2	0	Me gustó tanto la asignatura el año pasado que la estoy volviendo a hacer
+		roig5	20	Femenino	18	Derecha	Derecho	65	Der s Izq	2	No	166	NC	4	NS	NS	4	2	0	Me parece intersante
+		aigaca	18	F	17	Derecha	Derecho	92	Der s Izq	1	No	154	7,53	6,78	NA	NA	7,6	3	0	Una asignatura interesante
+		agilvi	18	Masculino	20	Derecha	Derecho	80	Der s Izq	4	No	175	8,015	7,91	NA	NA	7,5	4	0	En mi opinion es algo que nos ayudara en un futuro cercano
+		garsil3	18	Masculino	25	Derecha	Derecho	64	Ninguna	0	No	175	NC	NC	No se	no se	5	2	0	Interesante
+		frandovi	18	Masculino	20	Izquierda	Derecho	68	Izq s Der	4	No	170	6,145	7,44	NA	NA	6,7	2	0	Interesante
+		guargi	19	Femenino	17	Derecha	Derecho	76	Der s Izq	2	No	168	9.2	9.5			10	5	0	Útil e interesante
+		dsmlcg	21	M	23	Derecha	Derecho	80	Der s Izq	3	No	190	9,1	8,5	NA	NA	7	3	0	Interesante
+		roacor	18	Masculino	23	Derecha	Derecho	70	Der s Izq	6	No	190	4	7,63	NA	NA	4	2	0	Me parece muy interesante, espero aprender mucho.
+		angona8	19	Masculino	19	Izquierda	Izquierdo	65	Izq s Der	3	No	180	7,71	8,74	NS	NS	7,8	3	0	¿Qué le dice la foca a su madre?      ->I love you, mother foca.
+		achaugar	18	Masculino	18	Derecha	Izquierdo	65	Izq s Der	7	No	178	5.1	NC	NS	NS	5.4	2.5	0	99% Fe 1% Posibilidades 
+		rabeng	19	F	15	Derecha	Derecho	70	Der s Izq	0	Si	165	6,9	8,04			6,4	3	0	Me parece intersante
+		carmoes2	18	Femenino	20	Derecha	Derecho	70	Ninguna	1	No	158	5.1	3.4	NS	NS	5.5	3	0	Interesante
+		armonfe	19	Masculino	18	Derecha	Derecho	84	Der s Izq	3	No	180	                   7.86	                   8.21	NS	NS	                     7.0	4.5	0	La dificultad parece ser que reside más en la novedad que en el temario en sí
+		tecaii	18	Femenino	18	Derecha	Izquierdo	78	Der s Izq	3	Si	162	8.36	9.1	NA	NA	7	3	0	La asignatura me parece interesante. 
+		eboco	18	Femenino	18	Derecha	Derecho	76	Der s Izq	3	No	166	6.92	6.98	NA	NA	6.7	3	0	Me resulta interesante trabajar con datos reales y cercanos,pero me asusta los fallos que pueda dar la introducción de datos de forma manual.
+		paruidel	18	Masculino	22	Derecha	Derecho	76	Der s Izq	0	No	174	7,34	7,27	NS	NS	6,6	1	0	Tengo buena impresión, me parece interesante
